@@ -10,83 +10,146 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 import logo from '../images/logo.svg'
+import Drawer from '@mui/material/Drawer'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemButton from '@mui/material/ListItemButton'
+import ListItemText from '@mui/material/ListItemText'
 
 const NavBar: FC = () => {
-    const [anchorElNav, setAnchorElNav] = React.useState()
-    const [anchorElUser, setAnchorElUser] = React.useState()
 
-    // event type was React.MouseEvent<HTMLElement> but replaced with any for now to skip error
-    const handleOpenNavMenu = (event: any) => {
-        setAnchorElNav(event.currentTarget)
+    const [mobileOpen, setMobileOpen] = React.useState(false)
+
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen)
     }
 
-    // Menu items array
+    // Menu items arrays
     const menuItems = [
         'Features', 'Company', 'Careers', 'About'
     ]
 
-    return (
-        <AppBar position='fixed' color='transparent' elevation={0}>
-            <Toolbar sx={{ boxShadow: 1 }}>
-                <img src={logo} alt="logo" />
+    const subItemsFeatures = [
+        'Todo List', 'Calendar', 'Reminders', 'Planning'
+    ]
 
-                {/* mobile menu */}
-                <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+    const subItemsCompany = [
+        'History', 'Our Team', 'Blog'
+    ]
+
+    const drawer = (
+        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+            <List>
+                {menuItems.map((item) => (
+                    <ListItem key={item} disablePadding>
+                        <ListItemButton sx={{ textAlign: 'center' }}>
+                            <ListItemText primary={item} />
+                        </ListItemButton>
+                    </ListItem>
+                ))}
+            </List>
+        </Box>
+    )
+
+    const dropdownFeatures = (
+        <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            //anchorEl={anchorElUser}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={true}
+        //onClose={handleCloseUserMenu}
+        >
+            {subItemsFeatures.map((subItem) => (
+                <MenuItem key={subItem}
+                //onClick={handleCloseUserMenu}
+                >
+                    <Typography textAlign="center">{subItem}</Typography>
+                </MenuItem>
+            ))}
+        </Menu>
+    )
+
+    const dropdownCompany = (
+        <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            //anchorEl={anchorElUser}
+            anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+            }}
+            open={true}
+        //onClose={handleCloseUserMenu}
+        >
+            {subItemsCompany.map((subItem) => (
+                <MenuItem key={subItem}
+                //onClick={handleCloseUserMenu}
+                >
+                    <Typography textAlign="center">{subItem}</Typography>
+                </MenuItem>
+            ))}
+        </Menu>
+    )
+
+
+    return (
+        <Box sx={{ display: 'flex' }}>
+            <AppBar component="nav" elevation={0} color='transparent'>
+                <Toolbar>
                     <IconButton
-                        size="large"
-                        aria-label="account of current user"
-                        aria-controls="menu-appbar"
-                        aria-haspopup="true"
-                        onClick={handleOpenNavMenu}
                         color="inherit"
+                        aria-label="open drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ mr: 2, display: { sm: 'none' } }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Menu
-                        id="menu-appbar"
-                        anchorEl={anchorElNav}
-                        anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "left"
-                        }}
-                        keepMounted
-                        transformOrigin={{
-                            vertical: "top",
-                            horizontal: "left"
-                        }}
-                        open={Boolean(anchorElNav)}
-                        // onClose={handleCloseNavMenu}
-                        sx={{
-                            display: { xs: "block", md: "none" }
-                        }}
-                    >
+
+                    <img src={logo} alt="logo" />
+
+                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                         {menuItems.map((item) => (
-                            <MenuItem key={item}
-                            // onClick={handleCloseNavMenu}
-                            >
-                                <Typography textAlign="center">{item}</Typography>
-                            </MenuItem>
+                            <Button key={item} sx={{ color: '#000' }}>
+                                {item}
+                            </Button>
+                            // if item === Features or Company, also return respective dropdown below the Button?
                         ))}
-                    </Menu>
-                </Box>
-
-                {/* desktop menu */}
-                <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                    {menuItems.map((item) => (
-                        <Button
-                            key={item}
-                            //onClick={handleCloseNavMenu}
-                            sx={{ my: 2, display: "block" }}
-                        >
-                            {item}
-                        </Button>
-                    ))}
-                </Box>
-            </Toolbar>
-
-        </AppBar >
-
-
+                    </Box>
+                </Toolbar>
+            </AppBar>
+            <Box component="nav">
+                <Drawer
+                    variant="temporary"
+                    anchor="right"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
+                    sx={{
+                        display: { xs: 'block', sm: 'none' },
+                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '600' },
+                    }}
+                >
+                    {drawer}
+                </Drawer>s
+            </Box>
+        </Box>
     )
 }
 
