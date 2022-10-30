@@ -51,84 +51,44 @@ const NavBar: FC = () => {
         </Box>
     )
 
-    const dropdownFeatures = (
-        <Menu
-            sx={{ mt: '45px' }}
-            id="menu-appbar"
-            //anchorEl={anchorElUser}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={true}
-        //onClose={handleCloseUserMenu}
-        >
-            {subItemsFeatures.map((subItem) => (
-                <MenuItem key={subItem}
-                //onClick={handleCloseUserMenu}
-                >
-                    <Typography textAlign="center">{subItem}</Typography>
-                </MenuItem>
-            ))}
-        </Menu>
-    )
-
-    const dropdownCompany = (
-        <Menu
-            sx={{ mt: '45px' }}
-            id="menu-appbar"
-            //anchorEl={anchorElUser}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={true}
-        //onClose={handleCloseUserMenu}
-        >
-            {subItemsCompany.map((subItem) => (
-                <MenuItem key={subItem}
-                //onClick={handleCloseUserMenu}
-                >
-                    <Typography textAlign="center">{subItem}</Typography>
-                </MenuItem>
-            ))}
-        </Menu>
-    )
-
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <>
             <AppBar component="nav" elevation={0} color='transparent'>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ mr: 2, display: { sm: 'none' } }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
+                <Toolbar sx={{ display: 'flex', justifyContent: { xs: 'space-between' } }}>
 
-                    <img src={logo} alt="logo" />
+                    {/*  Logo */}
+                    <Box sx={{ display: 'block', mr: 8 }}
+                    >  <img src={logo} alt="logo" /></Box>
 
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    {/* Main nav items */}
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
                         {menuItems.map((item) => (
-                            <Button key={item} sx={{ color: '#000' }}>
+                            <Button key={item} sx={{ color: '#000', pl: 4 }}>
                                 {item}
                             </Button>
-                            // if item === Features or Company, also return respective dropdown below the Button?
                         ))}
+                    </Box>
+
+                    {/* Far right buttons */}
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 0 }}>
+                        <Button>Login</Button>
+                        <Button>Register</Button>
+                    </Box>
+
+                    {/* Burger Menu */}
+                    <Box sx={{
+                        display: { xs: "flex", md: "none" }, flexGrow: 0
+                    }}>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="start"
+                            onClick={handleDrawerToggle}
+                            sx={{ display: { md: 'none' } }}
+                        >
+                            <MenuIcon />
+                        </IconButton>
                     </Box>
                 </Toolbar>
             </AppBar>
@@ -147,9 +107,9 @@ const NavBar: FC = () => {
                     }}
                 >
                     {drawer}
-                </Drawer>s
+                </Drawer>
             </Box>
-        </Box>
+        </>
     )
 }
 
