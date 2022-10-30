@@ -1,20 +1,22 @@
-
 import React, { FC } from 'react'
 import AppBar from '@mui/material/AppBar'
-import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar'
-import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
-import Menu from '@mui/material/Menu'
-import MenuIcon from '@mui/icons-material/Menu'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import logo from '../images/logo.svg'
 import Drawer from '@mui/material/Drawer'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+
+import logo from '../images/logo.svg'
+import iconMenu from '../images/icon-menu.svg'
 
 const NavBar: FC = () => {
 
@@ -51,6 +53,13 @@ const NavBar: FC = () => {
         </Box>
     )
 
+    const buttonStyles = {
+        mx: 2,
+        '&:hover': {
+            color: 'secondary.main',
+            backgroundColor: 'transparent'
+        }
+    }
 
     return (
         <>
@@ -64,7 +73,11 @@ const NavBar: FC = () => {
                     {/* Main nav items */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
                         {menuItems.map((item) => (
-                            <Button key={item} sx={{ color: '#000', pl: 4 }}>
+                            <Button disableRipple
+                                key={item}
+                                size='small'
+                                endIcon={<KeyboardArrowDownIcon />}
+                                sx={buttonStyles}>
                                 {item}
                             </Button>
                         ))}
@@ -72,8 +85,14 @@ const NavBar: FC = () => {
 
                     {/* Far right buttons */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 0 }}>
-                        <Button>Login</Button>
-                        <Button>Register</Button>
+                        <Button disableRipple size='small' sx={buttonStyles} >Login</Button>
+                        <Button disableRipple size='small' sx={{
+                            border: 1, px: 2,
+                            '&:hover': {
+                                backgroundColor: 'transparent',
+                                border: 2
+                            }
+                        }} variant="outlined">Register</Button>
                     </Box>
 
                     {/* Burger Menu */}
@@ -81,13 +100,15 @@ const NavBar: FC = () => {
                         display: { xs: "flex", md: "none" }, flexGrow: 0
                     }}>
                         <IconButton
+                            disableRipple
+                            size="large"
                             color="inherit"
                             aria-label="open drawer"
                             edge="start"
                             onClick={handleDrawerToggle}
                             sx={{ display: { md: 'none' } }}
                         >
-                            <MenuIcon />
+                            <img src={iconMenu} alt="menu" />
                         </IconButton>
                     </Box>
                 </Toolbar>
@@ -102,7 +123,7 @@ const NavBar: FC = () => {
                         keepMounted: true,
                     }}
                     sx={{
-                        display: { xs: 'block', sm: 'none' },
+                        display: { xs: 'block', md: 'none' },
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '600' },
                     }}
                 >
