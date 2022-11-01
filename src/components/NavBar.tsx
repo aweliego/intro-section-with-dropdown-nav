@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { useState, FC, ReactNode } from 'react'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
@@ -11,6 +11,7 @@ import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -18,26 +19,47 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
 
-const NavBar: FC = () => {
+// Menu items arrays
+const pages = [
+    'Features', 'Company', 'Careers', 'About'
+]
 
-    const [mobileOpen, setMobileOpen] = React.useState(false)
+const subPagesFeatures = [
+    'Todo List', 'Calendar', 'Reminders', 'Planning'
+]
+
+const subPagesCompany = [
+    'History', 'Our Team', 'Blog'
+]
+
+const NavBar: FC = () => {
+    const [menuItems, setMenuItems] = useState(pages)
+    const [subItemsFeatures, setSubItemsFeatures] = useState(subPagesFeatures)
+    const [subItemsCompany, setsubItemsCompany] = useState(subPagesCompany)
+
+    const [anchorEl, setAnchorEl] = useState(null)
+
+    const [mobileOpen, setMobileOpen] = useState(false)
+
+    const handleOpenMenu = (e: any) => {
+        setAnchorEl(e.currentTarget)
+    }
+
+    const handleCloseMenu = () => {
+        setAnchorEl(null)
+    }
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
     }
 
-    // Menu items arrays
-    const menuItems = [
-        'Features', 'Company', 'Careers', 'About'
-    ]
-
-    const subItemsFeatures = [
-        'Todo List', 'Calendar', 'Reminders', 'Planning'
-    ]
-
-    const subItemsCompany = [
-        'History', 'Our Team', 'Blog'
-    ]
+    const buttonStyles = {
+        mx: 2,
+        '&:hover': {
+            color: 'secondary.main',
+            backgroundColor: 'transparent'
+        }
+    }
 
     const drawer = (
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
@@ -50,16 +72,16 @@ const NavBar: FC = () => {
                     </ListItem>
                 ))}
             </List>
+            <Button disableRipple size='small' sx={buttonStyles} >Login</Button>
+            <Button disableRipple size='small' sx={{
+                border: 1, px: 2,
+                '&:hover': {
+                    backgroundColor: 'transparent',
+                    border: 2
+                }
+            }} variant="outlined">Register</Button>
         </Box>
     )
-
-    const buttonStyles = {
-        mx: 2,
-        '&:hover': {
-            color: 'secondary.main',
-            backgroundColor: 'transparent'
-        }
-    }
 
     return (
         <>
@@ -72,15 +94,44 @@ const NavBar: FC = () => {
 
                     {/* Main nav items */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
-                        {menuItems.map((item) => (
-                            <Button disableRipple
-                                key={item}
-                                size='small'
-                                endIcon={<KeyboardArrowDownIcon />}
-                                sx={buttonStyles}>
-                                {item}
-                            </Button>
-                        ))}
+                        {menuItems.map((item) => {
+                            return (
+                                <>
+                                    <Button disableRipple
+                                        key={item}
+                                        size='small'
+                                        endIcon={(item === 'Features' || item === 'Company') && <KeyboardArrowDownIcon />}
+                                        onClick={(e) => (item === 'Features' || item === 'Company') ? handleOpenMenu(e) : null}
+                                        sx={buttonStyles}>
+                                        {item}
+                                    </Button>
+                                    <Menu
+                                        sx={{ mt: '45px' }}
+                                        elevation={3}
+                                        transitionDuration={0}
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'left',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'left',
+                                        }}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleCloseMenu}
+                                    >
+                                        {subItemsFeatures.map((subItem) => (
+                                            <MenuItem key={subItem}
+                                                onClick={handleCloseMenu}
+                                            >
+                                                <Typography textAlign="center">{subItem}</Typography>
+                                            </MenuItem>
+                                        ))}
+                                    </Menu>
+                                </>)
+                        })}
                     </Box>
 
                     {/* Far right buttons */}
