@@ -21,7 +21,22 @@ import iconMenu from '../images/icon-menu.svg'
 
 // Menu items arrays
 const pages = [
-    'Features', 'Company', 'Careers', 'About'
+    {
+        id: 'Features',
+        name: 'Features'
+    },
+    {
+        id: 'Company',
+        name: 'Company'
+    },
+    {
+        id: 'Careers',
+        name: 'Careers'
+    },
+    {
+        id: 'About',
+        name: 'About'
+    }
 ]
 
 const subPagesFeatures = [
@@ -34,8 +49,7 @@ const subPagesCompany = [
 
 const NavBar: FC = () => {
     const [menuItems, setMenuItems] = useState(pages)
-    const [subItemsFeatures, setSubItemsFeatures] = useState(subPagesFeatures)
-    const [subItemsCompany, setsubItemsCompany] = useState(subPagesCompany)
+    const [subItems, setSubItems] = useState<string[]>()
 
     const [anchorEl, setAnchorEl] = useState(null)
 
@@ -43,6 +57,12 @@ const NavBar: FC = () => {
 
     const handleOpenMenu = (e: any) => {
         setAnchorEl(e.currentTarget)
+        if (e.currentTarget.id === 'Features') {
+            setSubItems(subPagesFeatures)
+        }
+        if (e.currentTarget.id === 'Company') {
+            setSubItems(subPagesCompany)
+        }
     }
 
     const handleCloseMenu = () => {
@@ -65,9 +85,9 @@ const NavBar: FC = () => {
         <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
             <List>
                 {menuItems.map((item) => (
-                    <ListItem key={item} disablePadding>
+                    <ListItem key={item.id} disablePadding>
                         <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item} />
+                            <ListItemText primary={item.name} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -98,12 +118,13 @@ const NavBar: FC = () => {
                             return (
                                 <>
                                     <Button disableRipple
-                                        key={item}
+                                        key={item.id}
+                                        id={item.id}
                                         size='small'
-                                        endIcon={(item === 'Features' || item === 'Company') && <KeyboardArrowDownIcon />}
-                                        onClick={(e) => (item === 'Features' || item === 'Company') ? handleOpenMenu(e) : null}
+                                        endIcon={(item.name === 'Features' || item.name === 'Company') && <KeyboardArrowDownIcon />}
+                                        onClick={(e) => (item.name === 'Features' || item.name === 'Company') ? handleOpenMenu(e) : null}
                                         sx={buttonStyles}>
-                                        {item}
+                                        {item.name}
                                     </Button>
                                     <Menu
                                         sx={{ mt: '45px' }}
@@ -122,7 +143,7 @@ const NavBar: FC = () => {
                                         open={Boolean(anchorEl)}
                                         onClose={handleCloseMenu}
                                     >
-                                        {subItemsFeatures.map((subItem) => (
+                                        {subItems?.map((subItem) => (
                                             <MenuItem key={subItem}
                                                 onClick={handleCloseMenu}
                                             >
