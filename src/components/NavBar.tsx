@@ -122,20 +122,41 @@ const NavBar: FC = () => {
             <List>
                 {menuItems.map((item) => (
                     <ListItem key={item.id} disablePadding>
-                        <ListItemButton sx={{ textAlign: 'center' }}>
-                            <ListItemText primary={item.name} />
+                        <ListItemButton
+                            disableRipple
+                            sx={{
+                                mx: 2,
+                                '&:hover': {
+                                    color: 'secondary.main',
+                                    backgroundColor: 'transparent'
+                                }
+                            }}>
+                            <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={item.name} />
                         </ListItemButton>
                     </ListItem>
                 ))}
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                    <ListItemButton disableRipple sx={{
+                        mx: 2,
+                        '&:hover': {
+                            color: 'secondary.main',
+                            backgroundColor: 'transparent'
+                        }
+                    }}>
+                        <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary='Login' />
+                    </ListItemButton>
+                    <ListItemButton disableRipple sx={{
+                        border: 1, borderRadius: 1, width: '90%', textAlign: 'center',
+                        '&:hover': {
+                            backgroundColor: 'transparent',
+                            border: 2
+                        }
+                    }}>
+                        <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary='Register' />
+                    </ListItemButton>
+                </Box>
             </List>
-            <Button disableRipple size='small' sx={buttonStyles} >Login</Button>
-            <Button disableRipple size='small' sx={{
-                border: 1, px: 2,
-                '&:hover': {
-                    backgroundColor: 'transparent',
-                    border: 2
-                }
-            }} variant="outlined">Register</Button>
+
         </Box>
     )
 
@@ -183,9 +204,10 @@ const NavBar: FC = () => {
                                         {subItems?.map((subItem) => (
                                             <MenuItem key={subItem.id}
                                                 onClick={handleCloseMenu}
+                                                sx={{ px: '20px' }}
                                             >
                                                 {subItem.icon && <img src={subItem.icon} alt='icon' />}
-                                                <Typography sx={{ pl: '10px' }} textAlign="center">{subItem.name}</Typography>
+                                                <Typography sx={{ pl: '10px' }} textAlign="left">{subItem.name}</Typography>
                                             </MenuItem>
                                         ))}
                                     </Menu>
