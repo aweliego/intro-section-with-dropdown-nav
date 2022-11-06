@@ -18,9 +18,15 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
+import iconTodo from '../images/icon-todo.svg'
+import iconCalendar from '../images/icon-calendar.svg'
+import iconReminders from '../images/icon-reminders.svg'
+import iconPlanning from '../images/icon-planning.svg'
+
+import PagesModel from '../types/PagesModel'
 
 // Menu items arrays
-const pages = [
+const pages: Array<PagesModel> = [
     {
         id: 'Features',
         name: 'Features'
@@ -39,17 +45,47 @@ const pages = [
     }
 ]
 
-const subPagesFeatures = [
-    'Todo List', 'Calendar', 'Reminders', 'Planning'
+const subPagesFeatures: Array<PagesModel> = [
+    {
+        id: 'Todo List',
+        name: 'Todo List',
+        icon: iconTodo
+    },
+    {
+        id: 'Calendar',
+        name: 'Calendar',
+        icon: iconCalendar
+    },
+    {
+        id: 'Reminders',
+        name: 'Reminders',
+        icon: iconReminders
+    },
+    {
+        id: 'Planning',
+        name: 'Planning',
+        icon: iconPlanning
+    }
 ]
 
-const subPagesCompany = [
-    'History', 'Our Team', 'Blog'
+const subPagesCompany: Array<PagesModel> = [
+    {
+        id: 'History',
+        name: 'History'
+    },
+    {
+        id: 'Our Team',
+        name: 'Our Team'
+    },
+    {
+        id: 'Blog',
+        name: 'Blog'
+    }
 ]
 
 const NavBar: FC = () => {
     const [menuItems, setMenuItems] = useState(pages)
-    const [subItems, setSubItems] = useState<string[]>()
+    const [subItems, setSubItems] = useState<Array<PagesModel>>()
 
     const [anchorEl, setAnchorEl] = useState(null)
 
@@ -126,6 +162,7 @@ const NavBar: FC = () => {
                                         sx={buttonStyles}>
                                         {item.name}
                                     </Button>
+                                    {/* Drop-down menu */}
                                     <Menu
                                         sx={{ mt: '45px' }}
                                         elevation={3}
@@ -144,10 +181,11 @@ const NavBar: FC = () => {
                                         onClose={handleCloseMenu}
                                     >
                                         {subItems?.map((subItem) => (
-                                            <MenuItem key={subItem}
+                                            <MenuItem key={subItem.id}
                                                 onClick={handleCloseMenu}
                                             >
-                                                <Typography textAlign="center">{subItem}</Typography>
+                                                {subItem.icon && <img src={subItem.icon} alt='icon' />}
+                                                <Typography sx={{ pl: '10px' }} textAlign="center">{subItem.name}</Typography>
                                             </MenuItem>
                                         ))}
                                     </Menu>
