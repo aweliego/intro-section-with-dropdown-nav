@@ -24,6 +24,7 @@ import iconReminders from '../images/icon-reminders.svg'
 import iconPlanning from '../images/icon-planning.svg'
 
 import PagesModel from '../types/PagesModel'
+//import { SvgIconComponent } from "@mui/icons-material"
 
 // Menu items arrays
 const pages: Array<PagesModel> = [
@@ -88,6 +89,9 @@ const NavBar: FC = () => {
     const [subItems, setSubItems] = useState<Array<PagesModel>>()
 
     const [anchorEl, setAnchorEl] = useState(null)
+    //const [menuIsOpen, setMenuIsOpen] = useState(false)
+    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState(false)
+    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState(false)
 
     const [mobileOpen, setMobileOpen] = useState(false)
 
@@ -95,14 +99,36 @@ const NavBar: FC = () => {
         setAnchorEl(e.currentTarget)
         if (e.currentTarget.id === 'Features') {
             setSubItems(subPagesFeatures)
+            // setMenuIsOpen(true)
+            setCompanyMenuIsOpen(false)
+            setFeaturesMenuIsOpen(true)
         }
         if (e.currentTarget.id === 'Company') {
             setSubItems(subPagesCompany)
+            // setMenuIsOpen(true)
+            setFeaturesMenuIsOpen(false)
+            setCompanyMenuIsOpen(true)
         }
     }
 
     const handleCloseMenu = () => {
         setAnchorEl(null)
+        // setMenuIsOpen(false)
+        setFeaturesMenuIsOpen(false)
+        setCompanyMenuIsOpen(false)
+    }
+
+    const handleArrowIcon = (item: string): ReactNode | undefined => {
+        if (item === 'Features' && featuresMenuIsOpen) {
+            return <KeyboardArrowUpIcon />
+        } else if (item === 'Company' && companyMenuIsOpen) {
+            return <KeyboardArrowUpIcon />
+        } else if (item === 'Features' || item === 'Company') {
+            return <KeyboardArrowDownIcon />
+        } else if (item === 'Careers' || item === 'About') {
+            return undefined
+        }
+
     }
 
     const handleDrawerToggle = () => {
@@ -178,7 +204,9 @@ const NavBar: FC = () => {
                                         key={item.id}
                                         id={item.id}
                                         size='small'
-                                        endIcon={(item.name === 'Features' || item.name === 'Company') && <KeyboardArrowDownIcon />}
+                                        //endIcon={(item.name === 'Careers' || item.name === 'About') ? '' : menuIsOpen ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                        //endIcon={(item.name === 'Features' || item.name === 'Company') && <KeyboardArrowDownIcon />}
+                                        endIcon={handleArrowIcon(item.name)}
                                         onClick={(e) => (item.name === 'Features' || item.name === 'Company') ? handleOpenMenu(e) : null}
                                         sx={buttonStyles}>
                                         {item.name}
