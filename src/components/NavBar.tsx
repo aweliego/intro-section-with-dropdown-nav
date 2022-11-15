@@ -18,6 +18,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
+import iconCloseMenu from '../images/icon-close-menu.svg'
 import iconTodo from '../images/icon-todo.svg'
 import iconCalendar from '../images/icon-calendar.svg'
 import iconReminders from '../images/icon-reminders.svg'
@@ -123,7 +124,6 @@ const NavBar: FC = () => {
         } else if (item === 'Careers' || item === 'About') {
             return undefined
         }
-
     }
 
     const handleDrawerToggle = () => {
@@ -271,7 +271,7 @@ const NavBar: FC = () => {
                     variant="temporary"
                     anchor="right"
                     open={mobileOpen}
-                    onClose={handleDrawerToggle}
+                    //onClose={handleDrawerToggle}
                     ModalProps={{
                         keepMounted: true,
                     }}
@@ -280,6 +280,17 @@ const NavBar: FC = () => {
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '600' },
                     }}
                 >
+                    <IconButton
+                        disableRipple
+                        size="large"
+                        color="inherit"
+                        aria-label="close drawer"
+                        edge="start"
+                        onClick={handleDrawerToggle}
+                        sx={{ display: { sm: 'flex', md: 'none' }, justifyContent: 'flex-end', p: 2 }}
+                    >
+                        <img src={iconCloseMenu} alt="close" />
+                    </IconButton>
                     {drawer}
                 </Drawer>
             </Box>
