@@ -28,3 +28,4 @@ yarn-error.log*
 *.fig
 
 style-guide.md
+/design
