@@ -1,4 +1,7 @@
 import React, { useState, FC, ReactNode } from 'react'
+
+import { pages } from '../navItems'
+
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
@@ -7,6 +10,7 @@ import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Drawer from '@mui/material/Drawer'
+import Collapse from '@mui/material/Collapse'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -19,90 +23,22 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
 import iconCloseMenu from '../images/icon-close-menu.svg'
-import iconTodo from '../images/icon-todo.svg'
-import iconCalendar from '../images/icon-calendar.svg'
-import iconReminders from '../images/icon-reminders.svg'
-import iconPlanning from '../images/icon-planning.svg'
-
-import PagesModel from '../types/PagesModel'
-
-// Menu items arrays
-const pages: Array<PagesModel> = [
-    {
-        id: 'Features',
-        name: 'Features'
-    },
-    {
-        id: 'Company',
-        name: 'Company'
-    },
-    {
-        id: 'Careers',
-        name: 'Careers'
-    },
-    {
-        id: 'About',
-        name: 'About'
-    }
-]
-
-const subPagesFeatures: Array<PagesModel> = [
-    {
-        id: 'Todo List',
-        name: 'Todo List',
-        icon: iconTodo
-    },
-    {
-        id: 'Calendar',
-        name: 'Calendar',
-        icon: iconCalendar
-    },
-    {
-        id: 'Reminders',
-        name: 'Reminders',
-        icon: iconReminders
-    },
-    {
-        id: 'Planning',
-        name: 'Planning',
-        icon: iconPlanning
-    }
-]
-
-const subPagesCompany: Array<PagesModel> = [
-    {
-        id: 'History',
-        name: 'History'
-    },
-    {
-        id: 'Our Team',
-        name: 'Our Team'
-    },
-    {
-        id: 'Blog',
-        name: 'Blog'
-    }
-]
 
 const NavBar: FC = () => {
-    const [menuItems, setMenuItems] = useState(pages)
-    const [subItems, setSubItems] = useState<Array<PagesModel>>()
-
     const [anchorEl, setAnchorEl] = useState(null)
     const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState(false)
     const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState(false)
 
     const [mobileOpen, setMobileOpen] = useState(false)
+    const [dropDownOpen, setDropDownOpen] = useState(false)
 
     const handleOpenMenu = (e: any) => {
         setAnchorEl(e.currentTarget)
         if (e.currentTarget.id === 'Features') {
-            setSubItems(subPagesFeatures)
             setCompanyMenuIsOpen(false)
             setFeaturesMenuIsOpen(true)
         }
         if (e.currentTarget.id === 'Company') {
-            setSubItems(subPagesCompany)
             setFeaturesMenuIsOpen(false)
             setCompanyMenuIsOpen(true)
         }
@@ -139,23 +75,37 @@ const NavBar: FC = () => {
     }
 
     const drawer = (
-        <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
+        <Box sx={{ textAlign: 'center' }}>
             <List>
-                {menuItems.map((item) => (
-                    <ListItem key={item.id} disablePadding>
-                        <ListItemButton
-                            disableRipple
-                            sx={{
-                                mx: 2,
-                                '&:hover': {
-                                    color: 'secondary.main',
-                                    backgroundColor: 'transparent'
-                                }
-                            }}>
-                            <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={item.name} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+                {pages.map((item, idx) => {
+                    const { page, subPages } = item
+                    return (
+                        <ListItem key={idx} disablePadding>
+                            <ListItemButton
+                                disableRipple
+                                sx={{
+                                    mx: 2,
+                                    '&:hover': {
+                                        color: 'secondary.main',
+                                        backgroundColor: 'transparent'
+                                    }
+                                }}
+                                onClick={() => (page === 'Features' || page === 'Company') ? setDropDownOpen(!dropDownOpen) : null}
+                            >
+                                <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={page} />
+                            </ListItemButton>
+                            {/* If item should have a dropdown, create one, otherwise return null */}
+                            {page === 'Features' || page === 'Company' ? <Collapse in={dropDownOpen} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    <ListItemButton onClick={handleDrawerToggle} sx={{ pl: 4 }}>
+                                        <ListItemText primary="subItem" />
+                                    </ListItemButton>
+                                </List>
+                            </Collapse> : null}
+                        </ListItem>)
+                }
+                )}
+
                 <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
                     <ListItemButton disableRipple sx={{
                         mx: 2,
@@ -192,17 +142,17 @@ const NavBar: FC = () => {
 
                     {/* Main nav items */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
-                        {menuItems.map((item) => {
+                        {pages.map((item, idx) => {
+                            const { page, subPages } = item
                             return (
                                 <>
                                     <Button disableRipple
-                                        key={item.id}
-                                        id={item.id}
+                                        key={idx}
                                         size='small'
-                                        endIcon={handleArrowIcon(item.name)}
-                                        onClick={(e) => (item.name === 'Features' || item.name === 'Company') ? handleOpenMenu(e) : null}
+                                        endIcon={handleArrowIcon(page)}
+                                        onClick={(e) => (page === 'Features' || page === 'Company') ? handleOpenMenu(e) : null}
                                         sx={buttonStyles}>
-                                        {item.name}
+                                        {page}
                                     </Button>
                                     {/* Drop-down menu */}
                                     <Menu
@@ -222,15 +172,18 @@ const NavBar: FC = () => {
                                         open={Boolean(anchorEl)}
                                         onClose={handleCloseMenu}
                                     >
-                                        {subItems?.map((subItem) => (
-                                            <MenuItem key={subItem.id}
-                                                onClick={handleCloseMenu}
-                                                sx={{ px: '20px' }}
-                                            >
-                                                {subItem.icon && <img src={subItem.icon} alt='icon' />}
-                                                <Typography sx={{ pl: '10px' }} textAlign="left">{subItem.name}</Typography>
-                                            </MenuItem>
-                                        ))}
+                                        {subPages?.map((subPage, idx) => {
+                                            const { label, icon, url } = subPage
+                                            return (
+                                                <MenuItem key={idx}
+                                                    onClick={handleCloseMenu}
+                                                    sx={{ px: '20px' }}
+                                                >
+                                                    {icon && <img src={icon} alt='icon' />}
+                                                    <Typography sx={{ pl: '10px' }} textAlign="left">{label}</Typography>
+                                                </MenuItem>
+                                            )
+                                        })}
                                     </Menu>
                                 </>)
                         })}
@@ -271,7 +224,6 @@ const NavBar: FC = () => {
                     variant="temporary"
                     anchor="right"
                     open={mobileOpen}
-                    //onClose={handleDrawerToggle}
                     ModalProps={{
                         keepMounted: true,
                     }}

@@ -1,7 +1,6 @@
 interface PagesModel {
-  id: string
-  name: string
-  icon?: string
+  page: string
+  subPages?: { label: string; icon?: string; url: string }[]
 }
 
 export default PagesModel
