@@ -1,31 +1,60 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, ReactNode } from 'react'
 import { pages } from './navItems'
 import PagesModel from './types/PagesModel'
 
-type AppContextType = null | {
-    submenu: PagesModel | undefined
-    setSubmenu: React.Dispatch<React.SetStateAction<PagesModel | undefined>>
+type AppContextType = {
     openSubmenu: (text: string) => void
-}
+    subItems: PagesModel['subPages']
+    anchorEl: any
+    setAnchorEl: any
+    featuresMenuIsOpen: Boolean
+    // setFeaturesMenuIsOpen: any
+    companyMenuIsOpen: Boolean
+    // setCompanyMenuIsOpen: any
+    closeSubmenu: any
+    // updateArrowIcon: any
+} | null
 
 type Props = {
     children: React.ReactNode
 }
 
+const features = pages[0].subPages
+const company = pages[1].subPages
+
 export const AppContext = React.createContext<AppContextType>(null)
 
 export const AppProvider = ({ children }: Props) => {
-    const [submenu, setSubmenu] = useState<PagesModel | undefined>({ page: '', subPages: [] })
+    const [anchorEl, setAnchorEl] = useState(null)
+    const [subItems, setSubItems] = useState<PagesModel['subPages']>([])
+    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState(false)
+    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState(false)
 
-    const openSubmenu = (text: string) => {
-        // if text coming from the button matching the page value of the sublink, then return that
-        const submenu = pages.find((link) => link.page === text)
-        setSubmenu(submenu)
+    const openSubmenu = (anchorEl: string) => {
+        if (anchorEl === 'Features') {
+            setSubItems(features)
+            setCompanyMenuIsOpen(false)
+            setFeaturesMenuIsOpen(true)
+        }
+        if (anchorEl === 'Company') {
+            setSubItems(company)
+            setFeaturesMenuIsOpen(false)
+            setCompanyMenuIsOpen(true)
+        }
+    }
+
+    const closeSubmenu = () => {
+        setAnchorEl(null)
+        setFeaturesMenuIsOpen(false)
+        setCompanyMenuIsOpen(false)
     }
 
     return (
         <AppContext.Provider
-            value={{ submenu, setSubmenu, openSubmenu }}>
+            value={{
+                openSubmenu, anchorEl, setAnchorEl, closeSubmenu, subItems,
+                featuresMenuIsOpen, companyMenuIsOpen
+            }}>
             {children}
         </AppContext.Provider>
     )

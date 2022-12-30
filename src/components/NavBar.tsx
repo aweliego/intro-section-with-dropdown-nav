@@ -1,4 +1,6 @@
 import React, { useState, FC, ReactNode } from 'react'
+import Sidebar from './Sidebar'
+import { useGlobalContext } from '../context'
 
 import { pages } from '../navItems'
 
@@ -10,11 +12,7 @@ import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Drawer from '@mui/material/Drawer'
-import Collapse from '@mui/material/Collapse'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemButton from '@mui/material/ListItemButton'
-import ListItemText from '@mui/material/ListItemText'
+
 import Typography from '@mui/material/Typography'
 
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
@@ -25,32 +23,22 @@ import iconMenu from '../images/icon-menu.svg'
 import iconCloseMenu from '../images/icon-close-menu.svg'
 
 const NavBar: FC = () => {
-    const [anchorEl, setAnchorEl] = useState(null)
-    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState(false)
-    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState(false)
-
     const [mobileOpen, setMobileOpen] = useState(false)
-    const [dropDownOpen, setDropDownOpen] = useState(false)
 
-    const handleOpenMenu = (e: any) => {
-        setAnchorEl(e.currentTarget)
-        if (e.currentTarget.id === 'Features') {
-            setCompanyMenuIsOpen(false)
-            setFeaturesMenuIsOpen(true)
-        }
-        if (e.currentTarget.id === 'Company') {
-            setFeaturesMenuIsOpen(false)
-            setCompanyMenuIsOpen(true)
-        }
+    const { openSubmenu, anchorEl, setAnchorEl, subItems, closeSubmenu, featuresMenuIsOpen, companyMenuIsOpen } = useGlobalContext()
+
+    const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+        const label = e.currentTarget
+        setAnchorEl(label)
+        openSubmenu(label.id)
     }
 
     const handleCloseMenu = () => {
-        setAnchorEl(null)
-        setFeaturesMenuIsOpen(false)
-        setCompanyMenuIsOpen(false)
+        closeSubmenu()
     }
 
     const handleArrowIcon = (item: string): ReactNode | undefined => {
+        // updateArrowIcon(item)
         if (item === 'Features' && featuresMenuIsOpen) {
             return <KeyboardArrowUpIcon />
         } else if (item === 'Company' && companyMenuIsOpen) {
@@ -74,63 +62,6 @@ const NavBar: FC = () => {
         }
     }
 
-    const drawer = (
-        <Box sx={{ textAlign: 'center' }}>
-            <List>
-                {pages.map((item, idx) => {
-                    const { page, subPages } = item
-                    return (
-                        <ListItem key={idx} disablePadding>
-                            <ListItemButton
-                                disableRipple
-                                sx={{
-                                    mx: 2,
-                                    '&:hover': {
-                                        color: 'secondary.main',
-                                        backgroundColor: 'transparent'
-                                    }
-                                }}
-                                onClick={() => (page === 'Features' || page === 'Company') ? setDropDownOpen(!dropDownOpen) : null}
-                            >
-                                <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={page} />
-                            </ListItemButton>
-                            {/* If item should have a dropdown, create one, otherwise return null */}
-                            {page === 'Features' || page === 'Company' ? <Collapse in={dropDownOpen} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    <ListItemButton onClick={handleDrawerToggle} sx={{ pl: 4 }}>
-                                        <ListItemText primary="subItem" />
-                                    </ListItemButton>
-                                </List>
-                            </Collapse> : null}
-                        </ListItem>)
-                }
-                )}
-
-                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                    <ListItemButton disableRipple sx={{
-                        mx: 2,
-                        '&:hover': {
-                            color: 'secondary.main',
-                            backgroundColor: 'transparent'
-                        }
-                    }}>
-                        <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary='Login' />
-                    </ListItemButton>
-                    <ListItemButton disableRipple sx={{
-                        border: 1, borderRadius: 1, width: '90%', textAlign: 'center',
-                        '&:hover': {
-                            backgroundColor: 'transparent',
-                            border: 2
-                        }
-                    }}>
-                        <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary='Register' />
-                    </ListItemButton>
-                </Box>
-            </List>
-
-        </Box>
-    )
-
     return (
         <>
             <AppBar component="nav" elevation={0} color='transparent'>
@@ -143,11 +74,12 @@ const NavBar: FC = () => {
                     {/* Main nav items */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
                         {pages.map((item, idx) => {
-                            const { page, subPages } = item
+                            const { page } = item
                             return (
                                 <>
                                     <Button disableRipple
                                         key={idx}
+                                        id={page}
                                         size='small'
                                         endIcon={handleArrowIcon(page)}
                                         onClick={(e) => (page === 'Features' || page === 'Company') ? handleOpenMenu(e) : null}
@@ -172,7 +104,7 @@ const NavBar: FC = () => {
                                         open={Boolean(anchorEl)}
                                         onClose={handleCloseMenu}
                                     >
-                                        {subPages?.map((subPage, idx) => {
+                                        {subItems?.map((subPage, idx) => {
                                             const { label, icon, url } = subPage
                                             return (
                                                 <MenuItem key={idx}
@@ -243,7 +175,7 @@ const NavBar: FC = () => {
                     >
                         <img src={iconCloseMenu} alt="close" />
                     </IconButton>
-                    {drawer}
+                    <Sidebar />
                 </Drawer>
             </Box>
         </>
