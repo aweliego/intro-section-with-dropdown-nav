@@ -2,17 +2,20 @@ import React, { useState, useContext, ReactNode } from 'react'
 import { pages } from './navItems'
 import PagesModel from './types/PagesModel'
 
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+
 type AppContextType = {
     openSubmenu: (text: string) => void
     subItems: PagesModel['subPages']
     anchorEl: any
     setAnchorEl: any
-    featuresMenuIsOpen: Boolean
+    // featuresMenuIsOpen: Boolean
     // setFeaturesMenuIsOpen: any
-    companyMenuIsOpen: Boolean
+    // companyMenuIsOpen: Boolean
     // setCompanyMenuIsOpen: any
     closeSubmenu: any
-    // updateArrowIcon: any
+    updateArrowIcon: any
 } | null
 
 type Props = {
@@ -49,11 +52,23 @@ export const AppProvider = ({ children }: Props) => {
         setCompanyMenuIsOpen(false)
     }
 
+    const updateArrowIcon = (item: string) => {
+        if (item === 'Features' && featuresMenuIsOpen) {
+            return <KeyboardArrowUpIcon />
+        } else if (item === 'Company' && companyMenuIsOpen) {
+            return <KeyboardArrowUpIcon />
+        } else if (item === 'Features' || item === 'Company') {
+            return <KeyboardArrowDownIcon />
+        } else if (item === 'Careers' || item === 'About') {
+            return undefined
+        }
+    }
+
     return (
         <AppContext.Provider
             value={{
                 openSubmenu, anchorEl, setAnchorEl, closeSubmenu, subItems,
-                featuresMenuIsOpen, companyMenuIsOpen
+                updateArrowIcon
             }}>
             {children}
         </AppContext.Provider>

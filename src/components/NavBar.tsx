@@ -15,8 +15,8 @@ import Drawer from '@mui/material/Drawer'
 
 import Typography from '@mui/material/Typography'
 
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
@@ -25,29 +25,29 @@ import iconCloseMenu from '../images/icon-close-menu.svg'
 const NavBar: FC = () => {
     const [mobileOpen, setMobileOpen] = useState(false)
 
-    const { openSubmenu, anchorEl, setAnchorEl, subItems, closeSubmenu, featuresMenuIsOpen, companyMenuIsOpen } = useGlobalContext()
+    const { openSubmenu, anchorEl, setAnchorEl, subItems, closeSubmenu, updateArrowIcon } = useGlobalContext()
 
-    const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const label = e.currentTarget
         setAnchorEl(label)
         openSubmenu(label.id)
     }
 
-    const handleCloseMenu = () => {
+    const handleCloseMenu = (): void => {
         closeSubmenu()
     }
 
     const handleArrowIcon = (item: string): ReactNode | undefined => {
-        // updateArrowIcon(item)
-        if (item === 'Features' && featuresMenuIsOpen) {
-            return <KeyboardArrowUpIcon />
-        } else if (item === 'Company' && companyMenuIsOpen) {
-            return <KeyboardArrowUpIcon />
-        } else if (item === 'Features' || item === 'Company') {
-            return <KeyboardArrowDownIcon />
-        } else if (item === 'Careers' || item === 'About') {
-            return undefined
-        }
+        return updateArrowIcon(item)
+        // if (item === 'Features' && featuresMenuIsOpen) {
+        //     return <KeyboardArrowUpIcon />
+        // } else if (item === 'Company' && companyMenuIsOpen) {
+        //     return <KeyboardArrowUpIcon />
+        // } else if (item === 'Features' || item === 'Company') {
+        //     return <KeyboardArrowDownIcon />
+        // } else if (item === 'Careers' || item === 'About') {
+        //     return undefined
+        // }
     }
 
     const handleDrawerToggle = () => {
