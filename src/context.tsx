@@ -12,12 +12,14 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 type AppContextType = {
     navItems: PagesModel[]
-    openSubmenu: (text: string) => void
     subItems: PagesModel['subPages']
-    anchorEl: any
-    setAnchorEl: any
-    closeSubmenu: any
-    updateArrowIcon: any
+    anchorEl: Element | ((element: Element) => Element) | null | undefined
+    setAnchorEl: React.Dispatch<React.SetStateAction<Element | ((element: Element) => Element) | null | undefined>>
+    mobileOpen: boolean
+    setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>
+    openSubmenu: (text: string) => void
+    closeSubmenu: () => void
+    updateArrowIcon: (item: string) => React.ReactNode | undefined
 } | null
 
 type Props = {
@@ -32,9 +34,10 @@ export const AppContext = React.createContext<AppContextType>(null)
 export const AppProvider = ({ children }: Props) => {
     const [navItems, setNavItems] = useState<PagesModel[]>(pages)
     const [subItems, setSubItems] = useState<PagesModel['subPages']>([])
-    const [anchorEl, setAnchorEl] = useState<string | null>(null)
-    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState<Boolean>(false)
-    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState<Boolean>(false)
+    const [anchorEl, setAnchorEl] = useState<Element | ((element: Element) => Element) | null | undefined>(null)
+    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState<boolean>(false)
+    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState<boolean>(false)
+    const [mobileOpen, setMobileOpen] = useState<boolean>(false)
 
     const openSubmenu = (anchorEl: string) => {
         if (anchorEl === 'Features') {
@@ -76,7 +79,9 @@ export const AppProvider = ({ children }: Props) => {
                 setAnchorEl,
                 closeSubmenu,
                 subItems,
-                updateArrowIcon
+                updateArrowIcon,
+                mobileOpen,
+                setMobileOpen
             }}>
             {children}
         </AppContext.Provider>
