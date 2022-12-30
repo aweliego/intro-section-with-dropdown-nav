@@ -1,9 +1,12 @@
 import React, { useState, FC, ReactNode } from 'react'
-import Sidebar from './Sidebar'
+
+// Context
 import { useGlobalContext } from '../context'
 
-import { pages } from '../navItems'
+// Components
+import Sidebar from './Sidebar'
 
+// MUI
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Box from '@mui/material/Box'
@@ -12,12 +15,9 @@ import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Drawer from '@mui/material/Drawer'
-
 import Typography from '@mui/material/Typography'
 
-// import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-// import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-
+// Assets
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
 import iconCloseMenu from '../images/icon-close-menu.svg'
@@ -25,7 +25,7 @@ import iconCloseMenu from '../images/icon-close-menu.svg'
 const NavBar: FC = () => {
     const [mobileOpen, setMobileOpen] = useState(false)
 
-    const { openSubmenu, anchorEl, setAnchorEl, subItems, closeSubmenu, updateArrowIcon } = useGlobalContext()
+    const { navItems, openSubmenu, anchorEl, setAnchorEl, subItems, closeSubmenu, updateArrowIcon } = useGlobalContext()
 
     const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const label = e.currentTarget
@@ -39,15 +39,6 @@ const NavBar: FC = () => {
 
     const handleArrowIcon = (item: string): ReactNode | undefined => {
         return updateArrowIcon(item)
-        // if (item === 'Features' && featuresMenuIsOpen) {
-        //     return <KeyboardArrowUpIcon />
-        // } else if (item === 'Company' && companyMenuIsOpen) {
-        //     return <KeyboardArrowUpIcon />
-        // } else if (item === 'Features' || item === 'Company') {
-        //     return <KeyboardArrowDownIcon />
-        // } else if (item === 'Careers' || item === 'About') {
-        //     return undefined
-        // }
     }
 
     const handleDrawerToggle = () => {
@@ -73,7 +64,7 @@ const NavBar: FC = () => {
 
                     {/* Main nav items */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
-                        {pages.map((item, idx) => {
+                        {navItems.map((item, idx) => {
                             const { page } = item
                             return (
                                 <>

@@ -1,19 +1,21 @@
-import React, { useState, useContext, ReactNode } from 'react'
+import React, { useState, useContext } from 'react'
+
+// Data
 import { pages } from './navItems'
+
+// Types
 import PagesModel from './types/PagesModel'
 
+// MUI
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
 type AppContextType = {
+    navItems: PagesModel[]
     openSubmenu: (text: string) => void
     subItems: PagesModel['subPages']
     anchorEl: any
     setAnchorEl: any
-    // featuresMenuIsOpen: Boolean
-    // setFeaturesMenuIsOpen: any
-    // companyMenuIsOpen: Boolean
-    // setCompanyMenuIsOpen: any
     closeSubmenu: any
     updateArrowIcon: any
 } | null
@@ -22,16 +24,17 @@ type Props = {
     children: React.ReactNode
 }
 
-const features = pages[0].subPages
-const company = pages[1].subPages
+const features: PagesModel['subPages'] = pages[0].subPages
+const company: PagesModel['subPages'] = pages[1].subPages
 
 export const AppContext = React.createContext<AppContextType>(null)
 
 export const AppProvider = ({ children }: Props) => {
-    const [anchorEl, setAnchorEl] = useState(null)
+    const [navItems, setNavItems] = useState<PagesModel[]>(pages)
     const [subItems, setSubItems] = useState<PagesModel['subPages']>([])
-    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState(false)
-    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState(false)
+    const [anchorEl, setAnchorEl] = useState<string | null>(null)
+    const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState<Boolean>(false)
+    const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState<Boolean>(false)
 
     const openSubmenu = (anchorEl: string) => {
         if (anchorEl === 'Features') {
@@ -67,7 +70,12 @@ export const AppProvider = ({ children }: Props) => {
     return (
         <AppContext.Provider
             value={{
-                openSubmenu, anchorEl, setAnchorEl, closeSubmenu, subItems,
+                navItems,
+                openSubmenu,
+                anchorEl,
+                setAnchorEl,
+                closeSubmenu,
+                subItems,
                 updateArrowIcon
             }}>
             {children}

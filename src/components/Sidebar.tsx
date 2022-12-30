@@ -1,7 +1,9 @@
 import React, { useState, FC } from 'react'
 
-import { pages } from '../navItems'
+// Context
+import { useGlobalContext } from '../context'
 
+// MUI
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
 import List from '@mui/material/List'
@@ -13,14 +15,16 @@ const Sidebar: FC = () => {
     const [mobileOpen, setMobileOpen] = useState(false)
     const [dropDownOpen, setDropDownOpen] = useState(false)
 
+    const { navItems, subItems } = useGlobalContext()
+
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen)
     }
 
     return (<Box sx={{ textAlign: 'center' }}>
         <List>
-            {pages.map((item, idx) => {
-                const { page, subPages } = item
+            {navItems.map((item, idx) => {
+                const { page } = item
                 return (
                     <ListItem key={idx} disablePadding>
                         <ListItemButton

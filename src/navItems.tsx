@@ -1,5 +1,7 @@
+// Types
 import PagesModel from './types/PagesModel'
 
+// Assets
 import iconTodo from './images/icon-todo.svg'
 import iconCalendar from './images/icon-calendar.svg'
 import iconReminders from './images/icon-reminders.svg'
