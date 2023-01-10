@@ -1,4 +1,4 @@
-import React, { useState, FC } from 'react'
+import React, { FC, ReactNode } from 'react'
 
 // Context
 import { useGlobalContext } from '../context'
@@ -13,7 +13,7 @@ import ListItemText from '@mui/material/ListItemText'
 
 const Sidebar: FC = () => {
     const { navItems, subItems, featuresMenuIsOpen,
-        companyMenuIsOpen, mobileOpen, setMobileOpen, openSubmenu } = useGlobalContext()
+        companyMenuIsOpen, mobileOpen, setMobileOpen, openSubmenu, updateArrowIcon } = useGlobalContext()
 
     const showSubItems = (e: React.MouseEvent<HTMLDivElement>): void => {
         const label = e.currentTarget.id
@@ -23,6 +23,10 @@ const Sidebar: FC = () => {
     // Close sidebar when clicking on a nested item
     const handleDrawerToggle = (): void => {
         setMobileOpen(!mobileOpen)
+    }
+
+    const handleArrowIcon = (item: string): ReactNode | undefined => {
+        return updateArrowIcon(item)
     }
 
     return (<Box sx={{ textAlign: 'center' }}>
@@ -43,14 +47,15 @@ const Sidebar: FC = () => {
                             }}
                             onClick={(e) => (page === 'Features' || page === 'Company') ? showSubItems(e) : null}
                         >
-                            <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={page} />
+                            <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={page} /><span>{handleArrowIcon(page)}</span>
                         </ListItemButton>
                         {/* If item should have a dropdown, create one, otherwise return null */}
                         {page === 'Features' || page === 'Company' ?
                             subItems?.map((subPage, idx) => <Collapse in={page === 'Features' ? featuresMenuIsOpen : companyMenuIsOpen} key={idx} timeout="auto" unmountOnExit>
                                 <List component="div" disablePadding>
                                     <ListItemButton onClick={handleDrawerToggle} sx={{ pl: 4 }}>
-                                        <ListItemText primary={subPage.label} />
+                                        {subPage.icon && <img src={subPage.icon} alt='icon' />}
+                                        <ListItemText sx={{ pl: '10px' }} primary={subPage.label} />
                                     </ListItemButton>
                                 </List>
                             </Collapse>) : null}
