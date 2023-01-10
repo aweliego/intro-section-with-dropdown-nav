@@ -12,12 +12,16 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
 
 const Sidebar: FC = () => {
-    const [mobileOpen, setMobileOpen] = useState(false)
-    const [dropDownOpen, setDropDownOpen] = useState(false)
+    const { navItems, subItems, featuresMenuIsOpen,
+        companyMenuIsOpen, mobileOpen, setMobileOpen, openSubmenu } = useGlobalContext()
 
-    const { navItems, subItems } = useGlobalContext()
+    const showSubItems = (e: React.MouseEvent<HTMLDivElement>): void => {
+        const label = e.currentTarget.id
+        openSubmenu(label)
+    }
 
-    const handleDrawerToggle = () => {
+    // Close sidebar when clicking on a nested item
+    const handleDrawerToggle = (): void => {
         setMobileOpen(!mobileOpen)
     }
 
@@ -29,6 +33,7 @@ const Sidebar: FC = () => {
                     <ListItem key={idx} disablePadding>
                         <ListItemButton
                             disableRipple
+                            id={page}
                             sx={{
                                 mx: 2,
                                 '&:hover': {
@@ -36,18 +41,19 @@ const Sidebar: FC = () => {
                                     backgroundColor: 'transparent'
                                 }
                             }}
-                            onClick={() => (page === 'Features' || page === 'Company') ? setDropDownOpen(!dropDownOpen) : null}
+                            onClick={(e) => (page === 'Features' || page === 'Company') ? showSubItems(e) : null}
                         >
                             <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={page} />
                         </ListItemButton>
                         {/* If item should have a dropdown, create one, otherwise return null */}
-                        {page === 'Features' || page === 'Company' ? <Collapse in={dropDownOpen} timeout="auto" unmountOnExit>
-                            <List component="div" disablePadding>
-                                <ListItemButton onClick={handleDrawerToggle} sx={{ pl: 4 }}>
-                                    <ListItemText primary="subItem" />
-                                </ListItemButton>
-                            </List>
-                        </Collapse> : null}
+                        {page === 'Features' || page === 'Company' ?
+                            subItems?.map((subPage, idx) => <Collapse in={page === 'Features' ? featuresMenuIsOpen : companyMenuIsOpen} key={idx} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    <ListItemButton onClick={handleDrawerToggle} sx={{ pl: 4 }}>
+                                        <ListItemText primary={subPage.label} />
+                                    </ListItemButton>
+                                </List>
+                            </Collapse>) : null}
                     </ListItem>)
             }
             )}

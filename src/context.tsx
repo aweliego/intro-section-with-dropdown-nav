@@ -13,8 +13,11 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 type AppContextType = {
     navItems: PagesModel[]
     subItems: PagesModel['subPages']
+    setSubItems: any
     anchorEl: Element | ((element: Element) => Element) | null | undefined
     setAnchorEl: React.Dispatch<React.SetStateAction<Element | ((element: Element) => Element) | null | undefined>>
+    featuresMenuIsOpen: boolean
+    companyMenuIsOpen: boolean
     mobileOpen: boolean
     setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>
     openSubmenu: (text: string) => void
@@ -26,9 +29,6 @@ type Props = {
     children: React.ReactNode
 }
 
-const features: PagesModel['subPages'] = pages[0].subPages
-const company: PagesModel['subPages'] = pages[1].subPages
-
 export const AppContext = React.createContext<AppContextType>(null)
 
 export const AppProvider = ({ children }: Props) => {
@@ -39,16 +39,19 @@ export const AppProvider = ({ children }: Props) => {
     const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState<boolean>(false)
     const [mobileOpen, setMobileOpen] = useState<boolean>(false)
 
-    const openSubmenu = (anchorEl: string) => {
-        if (anchorEl === 'Features') {
+    const openSubmenu = (label: string) => {
+        const features = navItems[0].subPages
+        const company = navItems[1].subPages
+
+        if (label === 'Features') {
             setSubItems(features)
             setCompanyMenuIsOpen(false)
-            setFeaturesMenuIsOpen(true)
+            setFeaturesMenuIsOpen(!featuresMenuIsOpen)
         }
-        if (anchorEl === 'Company') {
+        if (label === 'Company') {
             setSubItems(company)
             setFeaturesMenuIsOpen(false)
-            setCompanyMenuIsOpen(true)
+            setCompanyMenuIsOpen(!companyMenuIsOpen)
         }
     }
 
@@ -79,9 +82,12 @@ export const AppProvider = ({ children }: Props) => {
                 setAnchorEl,
                 closeSubmenu,
                 subItems,
+                setSubItems,
                 updateArrowIcon,
                 mobileOpen,
-                setMobileOpen
+                setMobileOpen,
+                featuresMenuIsOpen,
+                companyMenuIsOpen,
             }}>
             {children}
         </AppContext.Provider>
