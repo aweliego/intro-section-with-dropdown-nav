@@ -14,13 +14,11 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import Drawer from '@mui/material/Drawer'
 import Typography from '@mui/material/Typography'
 
 // Assets
 import logo from '../images/logo.svg'
 import iconMenu from '../images/icon-menu.svg'
-import iconCloseMenu from '../images/icon-close-menu.svg'
 
 const NavBar: FC = () => {
     const { navItems, openSubmenu, anchorEl, setAnchorEl, sidebarOpen, setSidebarOpen, subItems, closeSubmenu, updateArrowIcon } = useGlobalContext()
@@ -94,7 +92,7 @@ const NavBar: FC = () => {
                                         onClose={handleCloseMenu}
                                     >
                                         {subItems?.map((subPage, idx) => {
-                                            const { label, icon, url } = subPage
+                                            const { label, icon } = subPage
                                             return (
                                                 <MenuItem key={idx}
                                                     onClick={handleCloseMenu}
@@ -140,33 +138,7 @@ const NavBar: FC = () => {
                     </Box>
                 </Toolbar>
             </AppBar>
-            <Box component="nav">
-                <Drawer
-                    variant="temporary"
-                    anchor="right"
-                    open={sidebarOpen}
-                    ModalProps={{
-                        keepMounted: true,
-                    }}
-                    sx={{
-                        display: { xs: 'block', md: 'none' },
-                        '& .MuiDrawer-paper': { boxSizing: 'border-box', width: '600' },
-                    }}
-                >
-                    <IconButton
-                        disableRipple
-                        size="large"
-                        color="inherit"
-                        aria-label="close drawer"
-                        edge="start"
-                        onClick={handleDrawerToggle}
-                        sx={{ display: { sm: 'flex', md: 'none' }, justifyContent: 'flex-end', p: 2 }}
-                    >
-                        <img src={iconCloseMenu} alt="close" />
-                    </IconButton>
-                    <Sidebar />
-                </Drawer>
-            </Box>
+            <Sidebar />
         </>
     )
 }

@@ -5,15 +5,20 @@ import { useGlobalContext } from '../context'
 
 // MUI
 import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
 import Collapse from '@mui/material/Collapse'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemText from '@mui/material/ListItemText'
+import IconButton from '@mui/material/IconButton'
+
+// Assets
+import iconCloseMenu from '../images/icon-close-menu.svg'
 
 const Sidebar: FC = () => {
     const { navItems, subItems, featuresMenuIsOpen,
-        companyMenuIsOpen, openSubmenu, closeSubmenu, updateArrowIcon } = useGlobalContext()
+        companyMenuIsOpen, openSubmenu, closeSubmenu, updateArrowIcon, sidebarOpen } = useGlobalContext()
 
     const showSubItems = (e: React.MouseEvent<HTMLDivElement>): void => {
         const label = e.currentTarget.id
@@ -28,62 +33,106 @@ const Sidebar: FC = () => {
         return updateArrowIcon(item)
     }
 
-    return (<Box sx={{ textAlign: 'center' }}>
-        <List>
-            {navItems.map((item, idx) => {
-                const { page } = item
-                return (
-                    <ListItem key={idx} disablePadding>
-                        <ListItemButton
-                            disableRipple
-                            id={page}
-                            sx={{
+    const listItemStyles = { fontSize: '14px' }
+
+    return (
+        <Box component="nav">
+            <Drawer
+                variant="temporary"
+                anchor="right"
+                open={sidebarOpen}
+                ModalProps={{
+                    keepMounted: true,
+                }}
+                sx={{
+                    width: 220,
+                    flexShrink: 0,
+                    '& .MuiDrawer-paper': {
+                        boxSizing: 'border-box',
+                        width: 220,
+                    },
+                    display: { xs: 'block', md: 'none' },
+                }}
+            >
+                <IconButton
+                    disableRipple
+                    size="large"
+                    color="inherit"
+                    aria-label="close drawer"
+                    edge="start"
+                    onClick={handleDrawerToggle}
+                    sx={{ display: { sm: 'flex', md: 'none' }, justifyContent: 'flex-end', p: 2 }}
+                >
+                    <img src={iconCloseMenu} alt="close" />
+                </IconButton>
+                <Box>
+                    {/* Features and Company categories */}
+                    <List>
+                        {navItems.map((item, idx) => {
+                            const { page } = item
+                            return (
+                                <ListItem key={idx} disablePadding sx={{
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-start',
+                                    pl: 2
+                                }}>
+                                    <ListItemButton
+                                        disableRipple
+                                        id={page}
+                                        sx={{
+                                            '&:hover': {
+                                                color: 'secondary.main',
+                                                backgroundColor: 'transparent'
+                                            }
+                                        }}
+                                        onClick={(e) => (page === 'Features' || page === 'Company') ? showSubItems(e) : null}
+                                    >
+                                        <ListItemText primaryTypographyProps={listItemStyles} primary={page} /><span>{handleArrowIcon(page)}</span>
+                                    </ListItemButton>
+                                    {/* If item should have a dropdown, create one */}
+                                    {page === 'Features' || page === 'Company' ?
+                                        subItems?.map((subPage, idx) => <Collapse in={page === 'Features' ? featuresMenuIsOpen : companyMenuIsOpen} key={idx} timeout="auto" unmountOnExit>
+                                            <List component="div" disablePadding sx={{ pl: 2 }}>
+                                                <ListItemButton onClick={handleDrawerToggle}>
+                                                    {subPage.icon && <img src={subPage.icon} alt='icon' />}
+                                                    <ListItemText primaryTypographyProps={listItemStyles}
+                                                        sx={{ pl: '10px' }}
+                                                        primary={subPage.label}
+                                                    />
+                                                </ListItemButton>
+                                            </List>
+                                        </Collapse>) : null}
+                                </ListItem>)
+                        }
+                        )}
+
+                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+                            {/*  Login button */}
+                            <ListItemButton disableRipple sx={{
                                 mx: 2,
                                 '&:hover': {
                                     color: 'secondary.main',
                                     backgroundColor: 'transparent'
                                 }
-                            }}
-                            onClick={(e) => (page === 'Features' || page === 'Company') ? showSubItems(e) : null}
-                        >
-                            <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary={page} /><span>{handleArrowIcon(page)}</span>
-                        </ListItemButton>
-                        {/* If item should have a dropdown, create one, otherwise return null */}
-                        {page === 'Features' || page === 'Company' ?
-                            subItems?.map((subPage, idx) => <Collapse in={page === 'Features' ? featuresMenuIsOpen : companyMenuIsOpen} key={idx} timeout="auto" unmountOnExit>
-                                <List component="div" disablePadding>
-                                    <ListItemButton onClick={handleDrawerToggle} sx={{ pl: 4 }}>
-                                        {subPage.icon && <img src={subPage.icon} alt='icon' />}
-                                        <ListItemText sx={{ pl: '10px' }} primary={subPage.label} />
-                                    </ListItemButton>
-                                </List>
-                            </Collapse>) : null}
-                    </ListItem>)
-            }
-            )}
-
-            <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
-                <ListItemButton disableRipple sx={{
-                    mx: 2,
-                    '&:hover': {
-                        color: 'secondary.main',
-                        backgroundColor: 'transparent'
-                    }
-                }}>
-                    <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary='Login' />
-                </ListItemButton>
-                <ListItemButton disableRipple sx={{
-                    border: 1, borderRadius: 1, width: '90%', textAlign: 'center',
-                    '&:hover': {
-                        backgroundColor: 'transparent',
-                        border: 2
-                    }
-                }}>
-                    <ListItemText primaryTypographyProps={{ fontSize: '14px' }} primary='Register' />
-                </ListItemButton>
-            </Box>
-        </List>
-    </Box>
+                            }}>
+                                <ListItemText primaryTypographyProps={listItemStyles} primary='Login' />
+                            </ListItemButton>
+                            {/* Register button */}
+                            <ListItemButton disableRipple sx={{
+                                border: 1, borderRadius: 1, width: '85%', textAlign: 'center',
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                    border: 2
+                                }
+                            }}>
+                                <ListItemText primaryTypographyProps={listItemStyles} primary='Register' />
+                            </ListItemButton>
+                        </Box>
+                    </List>
+                </Box>
+            </Drawer>
+        </Box>
     )
 }
 
