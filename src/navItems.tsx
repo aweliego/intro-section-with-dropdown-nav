@@ -14,22 +14,18 @@ export const pages: Array<PagesModel> = [
             {
                 label: 'Todo List',
                 icon: iconTodo,
-                url: '/todolist'
             },
             {
                 label: 'Calendar',
                 icon: iconCalendar,
-                url: '/calendar'
             },
             {
                 label: 'Reminders',
                 icon: iconReminders,
-                url: '/reminders'
             },
             {
                 label: 'Planning',
                 icon: iconPlanning,
-                url: '/planning'
             }
         ]
     },
@@ -38,15 +34,12 @@ export const pages: Array<PagesModel> = [
         subPages: [
             {
                 label: 'History',
-                url: '/history'
             },
             {
                 label: 'Our Team',
-                url: '/our-team'
             },
             {
                 label: 'Blog',
-                url: '/blog'
             }
         ]
     },
