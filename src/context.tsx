@@ -18,8 +18,8 @@ type AppContextType = {
     setAnchorEl: React.Dispatch<React.SetStateAction<Element | ((element: Element) => Element) | null | undefined>>
     featuresMenuIsOpen: boolean
     companyMenuIsOpen: boolean
-    mobileOpen: boolean
-    setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>
+    sidebarOpen: boolean
+    setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>
     openSubmenu: (text: string) => void
     closeSubmenu: () => void
     updateArrowIcon: (item: string) => React.ReactNode | undefined
@@ -37,7 +37,7 @@ export const AppProvider = ({ children }: Props) => {
     const [anchorEl, setAnchorEl] = useState<Element | ((element: Element) => Element) | null | undefined>(null)
     const [featuresMenuIsOpen, setFeaturesMenuIsOpen] = useState<boolean>(false)
     const [companyMenuIsOpen, setCompanyMenuIsOpen] = useState<boolean>(false)
-    const [mobileOpen, setMobileOpen] = useState<boolean>(false)
+    const [sidebarOpen, setSidebarOpen] = useState<boolean>(true)
 
     const openSubmenu = (label: string) => {
         const features = navItems[0].subPages
@@ -57,6 +57,9 @@ export const AppProvider = ({ children }: Props) => {
 
     const closeSubmenu = () => {
         setAnchorEl(null)
+        // Close sidebar when clicking on a nested item
+        setSidebarOpen(!sidebarOpen)
+        // Reset arrow icons down by default
         setFeaturesMenuIsOpen(false)
         setCompanyMenuIsOpen(false)
     }
@@ -84,8 +87,10 @@ export const AppProvider = ({ children }: Props) => {
                 subItems,
                 setSubItems,
                 updateArrowIcon,
-                mobileOpen,
-                setMobileOpen,
+                sidebarOpen,
+                setSidebarOpen,
+                // nestedItemOpen,
+                // setNestedItemOpen,
                 featuresMenuIsOpen,
                 companyMenuIsOpen,
             }}>

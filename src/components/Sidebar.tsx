@@ -13,16 +13,15 @@ import ListItemText from '@mui/material/ListItemText'
 
 const Sidebar: FC = () => {
     const { navItems, subItems, featuresMenuIsOpen,
-        companyMenuIsOpen, mobileOpen, setMobileOpen, openSubmenu, updateArrowIcon } = useGlobalContext()
+        companyMenuIsOpen, openSubmenu, closeSubmenu, updateArrowIcon } = useGlobalContext()
 
     const showSubItems = (e: React.MouseEvent<HTMLDivElement>): void => {
         const label = e.currentTarget.id
         openSubmenu(label)
     }
 
-    // Close sidebar when clicking on a nested item
     const handleDrawerToggle = (): void => {
-        setMobileOpen(!mobileOpen)
+        closeSubmenu()
     }
 
     const handleArrowIcon = (item: string): ReactNode | undefined => {

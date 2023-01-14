@@ -23,7 +23,7 @@ import iconMenu from '../images/icon-menu.svg'
 import iconCloseMenu from '../images/icon-close-menu.svg'
 
 const NavBar: FC = () => {
-    const { navItems, openSubmenu, anchorEl, setAnchorEl, subItems, closeSubmenu, updateArrowIcon, mobileOpen, setMobileOpen } = useGlobalContext()
+    const { navItems, openSubmenu, anchorEl, setAnchorEl, sidebarOpen, setSidebarOpen, subItems, closeSubmenu, updateArrowIcon } = useGlobalContext()
 
     const handleOpenMenu = (e: React.MouseEvent<HTMLButtonElement>): void => {
         const label = e.currentTarget
@@ -40,7 +40,7 @@ const NavBar: FC = () => {
     }
 
     const handleDrawerToggle = (): void => {
-        setMobileOpen(!mobileOpen)
+        setSidebarOpen(!sidebarOpen)
     }
 
     const buttonStyles = {
@@ -144,7 +144,7 @@ const NavBar: FC = () => {
                 <Drawer
                     variant="temporary"
                     anchor="right"
-                    open={mobileOpen}
+                    open={sidebarOpen}
                     ModalProps={{
                         keepMounted: true,
                     }}
