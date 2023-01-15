@@ -64,7 +64,7 @@ const NavBar: FC = () => {
                             const { page } = item
                             return (
                                 <>
-                                    <Button disableRipple
+                                    <Button
                                         key={idx}
                                         id={page}
                                         size='small'
@@ -110,8 +110,8 @@ const NavBar: FC = () => {
 
                     {/* Far right buttons */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 0 }}>
-                        <Button disableRipple size='small' sx={buttonStyles} >Login</Button>
-                        <Button disableRipple size='small' sx={{
+                        <Button size='small' sx={buttonStyles} >Login</Button>
+                        <Button size='small' sx={{
                             border: 1, px: 2,
                             '&:hover': {
                                 backgroundColor: 'transparent',
@@ -125,7 +125,6 @@ const NavBar: FC = () => {
                         display: { xs: "flex", md: "none" }, flexGrow: 0
                     }}>
                         <IconButton
-                            disableRipple
                             size="large"
                             color="inherit"
                             aria-label="open drawer"

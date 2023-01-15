@@ -55,7 +55,6 @@ const Sidebar: FC = () => {
                 }}
             >
                 <IconButton
-                    disableRipple
                     size="large"
                     color="inherit"
                     aria-label="close drawer"
@@ -78,7 +77,6 @@ const Sidebar: FC = () => {
                                     pl: 2
                                 }}>
                                     <ListItemButton
-                                        disableRipple
                                         id={page}
                                         sx={{
                                             '&:hover': {
@@ -109,23 +107,25 @@ const Sidebar: FC = () => {
 
                         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
                             {/*  Login button */}
-                            <ListItemButton disableRipple sx={{
-                                mx: 2,
-                                '&:hover': {
-                                    color: 'secondary.main',
-                                    backgroundColor: 'transparent'
-                                }
-                            }}>
+                            <ListItemButton
+                                sx={{
+                                    mx: 2,
+                                    '&:hover': {
+                                        color: 'secondary.main',
+                                        backgroundColor: 'transparent'
+                                    }
+                                }}>
                                 <ListItemText primaryTypographyProps={listItemStyles} primary='Login' />
                             </ListItemButton>
                             {/* Register button */}
-                            <ListItemButton disableRipple sx={{
-                                border: 1, borderRadius: 1, width: '85%', textAlign: 'center',
-                                '&:hover': {
-                                    backgroundColor: 'transparent',
-                                    border: 2
-                                }
-                            }}>
+                            <ListItemButton
+                                sx={{
+                                    border: 1, borderRadius: 1, width: '85%', textAlign: 'center',
+                                    '&:hover': {
+                                        backgroundColor: 'transparent',
+                                        border: 2
+                                    }
+                                }}>
                                 <ListItemText primaryTypographyProps={listItemStyles} primary='Register' />
                             </ListItemButton>
                         </Box>

@@ -51,16 +51,15 @@ const Hero = () => {
                                 my: 4
                             }}>
                             Get your team in sync, no matter your location. Streamline processes, create team rituals, and watch productivity soar.</Typography>
-                        <Button variant='contained' disableElevation
+                        <Button variant='contained'
                             sx={{
                                 alignSelf: 'flex-start',
                                 backgroundColor: 'secondary.main',
+                                fontWeight: 'fontWeightBold',
+                                border: 1,
                                 '&:hover': {
                                     backgroundColor: 'transparent',
-                                    border: 2,
                                     color: 'secondary.main',
-                                    fontWeight: 'fontWeightBold',
-                                    boxShadow: 0
                                 }
                             }}>
                             Learn more
@@ -77,7 +76,8 @@ const Hero = () => {
                         <Box component="img" src={heroDesktop} alt="" sx={{
                             display: 'block',
                             maxWidth: '100%',
-                            height: '500px'
+                            height: '500px',
+                            ml: 20
                         }} />
                     </Box>
                 </Box>
