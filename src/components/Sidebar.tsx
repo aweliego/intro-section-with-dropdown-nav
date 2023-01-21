@@ -60,7 +60,11 @@ const Sidebar: FC = () => {
                     aria-label="close drawer"
                     edge="start"
                     onClick={handleDrawerToggle}
-                    sx={{ display: { sm: 'flex', md: 'none' }, justifyContent: 'flex-end', p: 2 }}
+                    sx={{
+                        display: { sm: 'flex', md: 'none' },
+                        justifyContent: 'flex-end',
+                        p: 2
+                    }}
                 >
                     <img src={iconCloseMenu} alt="close" />
                 </IconButton>
@@ -70,12 +74,15 @@ const Sidebar: FC = () => {
                         {navItems.map((item, idx) => {
                             const { page } = item
                             return (
-                                <ListItem key={idx} disablePadding sx={{
-                                    display: 'flex',
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-start',
-                                    pl: 2
-                                }}>
+                                <ListItem
+                                    disablePadding
+                                    key={idx}
+                                    sx={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        alignItems: 'flex-start',
+                                        pl: 2
+                                    }}>
                                     <ListItemButton
                                         id={page}
                                         sx={{
@@ -86,26 +93,43 @@ const Sidebar: FC = () => {
                                         }}
                                         onClick={(e) => (page === 'Features' || page === 'Company') ? showSubItems(e) : null}
                                     >
-                                        <ListItemText primaryTypographyProps={listItemStyles} primary={page} /><span>{handleArrowIcon(page)}</span>
+                                        <ListItemText
+                                            primaryTypographyProps={listItemStyles}
+                                            primary={page} /> <span>{handleArrowIcon(page)}</span>
                                     </ListItemButton>
                                     {/* If item should have a dropdown, create one */}
                                     {page === 'Features' || page === 'Company' ?
-                                        subItems?.map((subPage, idx) => <Collapse in={page === 'Features' ? featuresMenuIsOpen : companyMenuIsOpen} key={idx} timeout="auto" unmountOnExit>
-                                            <List component="div" disablePadding sx={{ pl: 2 }}>
-                                                <ListItemButton onClick={handleDrawerToggle}>
-                                                    {subPage.icon && <img src={subPage.icon} alt='icon' />}
-                                                    <ListItemText primaryTypographyProps={listItemStyles}
-                                                        sx={{ pl: '10px' }}
-                                                        primary={subPage.label}
-                                                    />
-                                                </ListItemButton>
-                                            </List>
-                                        </Collapse>) : null}
+                                        subItems?.map((subPage, idx) =>
+                                            <Collapse
+                                                in={page === 'Features' ? featuresMenuIsOpen : companyMenuIsOpen}
+                                                key={idx}
+                                                timeout="auto"
+                                                unmountOnExit>
+                                                <List
+                                                    component="div"
+                                                    disablePadding
+                                                    sx={{ pl: 2 }}>
+                                                    <ListItemButton onClick={handleDrawerToggle}>
+                                                        {subPage.icon && <img src={subPage.icon} alt='icon' />}
+                                                        <ListItemText
+                                                            primaryTypographyProps={listItemStyles}
+                                                            primary={subPage.label}
+                                                            sx={{ pl: '10px' }}
+                                                        />
+                                                    </ListItemButton>
+                                                </List>
+                                            </Collapse>) : null}
                                 </ListItem>)
                         }
                         )}
 
-                        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', mt: 2 }}>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            mt: 2
+                        }}>
                             {/*  Login button */}
                             <ListItemButton
                                 sx={{
@@ -115,18 +139,25 @@ const Sidebar: FC = () => {
                                         backgroundColor: 'transparent'
                                     }
                                 }}>
-                                <ListItemText primaryTypographyProps={listItemStyles} primary='Login' />
+                                <ListItemText
+                                    primaryTypographyProps={listItemStyles}
+                                    primary='Login' />
                             </ListItemButton>
                             {/* Register button */}
                             <ListItemButton
                                 sx={{
-                                    border: 1, borderRadius: 1, width: '85%', textAlign: 'center',
+                                    border: 1,
+                                    borderRadius: 1,
+                                    width: '85%',
+                                    textAlign: 'center',
                                     '&:hover': {
                                         backgroundColor: 'transparent',
-                                        border: 2
+                                        color: 'secondary.main',
                                     }
                                 }}>
-                                <ListItemText primaryTypographyProps={listItemStyles} primary='Register' />
+                                <ListItemText
+                                    primaryTypographyProps={listItemStyles}
+                                    primary='Register' />
                             </ListItemButton>
                         </Box>
                     </List>

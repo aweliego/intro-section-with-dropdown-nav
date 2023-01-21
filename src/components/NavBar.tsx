@@ -51,15 +51,30 @@ const NavBar: FC = () => {
 
     return (
         <>
-            <AppBar component="nav" elevation={0} color='transparent'>
-                <Toolbar sx={{ display: 'flex', justifyContent: { xs: 'space-between' } }}>
+            <AppBar
+                component="nav"
+                elevation={0}
+                color='transparent'>
+                <Toolbar sx={{
+                    display: 'flex',
+                    justifyContent: { xs: 'space-between' },
+                    height: '80px'
+                }}>
 
                     {/*  Logo */}
-                    <Box sx={{ display: 'block', mr: 8 }}
-                    >  <img src={logo} alt="logo" /></Box>
+                    <Box sx={{
+                        display: 'block',
+                        mr: 8
+                    }}>
+                        <img src={logo} alt="logo" />
+                    </Box>
 
                     {/* Main nav items */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, width: '100%', flexGrow: 1 }}>
+                    <Box sx={{
+                        display: { xs: 'none', md: 'flex' },
+                        width: '100%',
+                        flexGrow: 1
+                    }}>
                         {navItems.map((item, idx) => {
                             const { page } = item
                             return (
@@ -109,20 +124,32 @@ const NavBar: FC = () => {
                     </Box>
 
                     {/* Far right buttons */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, flexGrow: 0 }}>
-                        <Button size='small' sx={buttonStyles} >Login</Button>
-                        <Button size='small' sx={{
-                            border: 1, px: 2,
-                            '&:hover': {
-                                backgroundColor: 'transparent',
-                                border: 2
-                            }
-                        }} variant="outlined">Register</Button>
+                    <Box sx={{
+                        display: { xs: 'none', md: 'flex' },
+                        flexGrow: 0
+                    }}>
+                        <Button
+                            size='small'
+                            sx={buttonStyles} >
+                            Login
+                        </Button>
+                        <Button
+                            size='small'
+                            sx={{
+                                border: 1,
+                                px: 2,
+                                '&:hover': {
+                                    backgroundColor: 'transparent',
+                                    color: 'secondary.main',
+                                }
+                            }} variant="outlined">Register</Button>
                     </Box>
 
                     {/* Burger Menu */}
                     <Box sx={{
-                        display: { xs: "flex", md: "none" }, flexGrow: 0
+                        display: { xs: "flex", md: "none" },
+                        flexGrow: 0,
+                        pr: { xs: 1, sm: 0 },
                     }}>
                         <IconButton
                             size="large"
