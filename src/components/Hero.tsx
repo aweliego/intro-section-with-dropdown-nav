@@ -15,11 +15,12 @@ import heroMobile from '../images/image-hero-mobile.png'
 
 const Hero = () => {
 
+    let boxHeight = '510px'
+
     const imgStyles = {
         maxWidth: '100%',
-        width: { xs: '100vw', md: 'auto' },
-        height: '20px',
-        mr: { xs: 4, md: 6 }
+        height: { xs: '15px', sm: '20px' },
+        mr: { xs: 4, md: 6 },
     }
 
     return (
@@ -33,7 +34,6 @@ const Hero = () => {
                     alignItems: 'center',
                     justifyContent: { xs: 'center', md: 'space-around' },
                     mt: 4,
-                    // height: { md: '500px' }
                 }}>
                     {/* first flex child */}
                     <Box sx={{
@@ -43,7 +43,7 @@ const Hero = () => {
                         justifyContent: { xs: 'center', md: 'flex-end' },
                         alignItems: { xs: 'center', md: 'start' },
                         width: { md: '50%' },
-                        height: { md: '500px' },
+                        height: { md: boxHeight },
                         mt: { xs: 8, md: 0 },
                         mr: { md: 15 }
                     }}>
@@ -88,14 +88,14 @@ const Hero = () => {
                         </Button>
                         <Box sx={{
                             display: 'flex',
-                            flexWrap: 'wrap',
                             mt: { xs: 6, md: 5 },
+                            mb: { xs: 4, sm: 0 },
                             px: { xs: 2, md: 0 },
                         }}>
                             <Box component="img" src={databizClient} alt="" sx={imgStyles} />
                             <Box component="img" src={audiophileClient} alt="" sx={imgStyles} />
                             <Box component="img" src={meetClient} alt="" sx={imgStyles} />
-                            <Box component="img" src={makerClient} alt="" sx={imgStyles} />
+                            <Box component="img" src={makerClient} alt="" sx={imgStyles} style={{ marginRight: 0 }} />
                         </Box>
                     </Box>
                     {/* second flex child */}
@@ -108,7 +108,7 @@ const Hero = () => {
                             display: 'block',
                             maxWidth: '100%',
                             width: { xs: '100vw', md: '400px' },
-                            height: { md: '500px' },
+                            height: { md: boxHeight },
                         }} />
                     </Box>
                 </Box>

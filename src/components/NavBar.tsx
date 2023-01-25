@@ -52,13 +52,14 @@ const NavBar: FC = () => {
     return (
         <>
             <AppBar
-                component="nav"
+                component='nav'
                 elevation={0}
-                color='transparent'>
+                color='inherit'
+            >
                 <Toolbar sx={{
                     display: 'flex',
                     justifyContent: { xs: 'space-between' },
-                    height: '80px'
+                    height: '80px',
                 }}>
 
                     {/*  Logo */}
