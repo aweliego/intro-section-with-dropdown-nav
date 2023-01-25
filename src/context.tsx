@@ -89,8 +89,6 @@ export const AppProvider = ({ children }: Props) => {
                 updateArrowIcon,
                 sidebarOpen,
                 setSidebarOpen,
-                // nestedItemOpen,
-                // setNestedItemOpen,
                 featuresMenuIsOpen,
                 companyMenuIsOpen,
             }}>
