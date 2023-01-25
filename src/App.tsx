@@ -35,6 +35,16 @@ const theme = createTheme({
         disableRipple: true,
       },
     },
+    MuiListItemButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    },
+    MuiIconButton: {
+      defaultProps: {
+        disableRipple: true,
+      },
+    }
   }
 })
 

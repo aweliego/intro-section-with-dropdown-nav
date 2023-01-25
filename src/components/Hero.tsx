@@ -1,3 +1,5 @@
+import { FC } from 'react'
+
 // MUI
 import Container from '@mui/material/Container'
 import Box from '@mui/material/Box'
@@ -13,7 +15,7 @@ import makerClient from '../images/client-maker.svg'
 import heroDesktop from '../images/image-hero-desktop.png'
 import heroMobile from '../images/image-hero-mobile.png'
 
-const Hero = () => {
+const Hero: FC = () => {
 
     let boxHeight = '510px'
 
