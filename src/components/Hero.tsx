@@ -27,7 +27,7 @@ const Hero = () => {
         <>
             <Toolbar />
             <Container disableGutters>
-                {/*  flex parent */}
+                {/*  Hero container */}
                 <Box sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
@@ -35,7 +35,7 @@ const Hero = () => {
                     justifyContent: { xs: 'center', md: 'space-around' },
                     mt: 4,
                 }}>
-                    {/* first flex child */}
+                    {/* Text section */}
                     <Box sx={{
                         display: 'flex',
                         flexDirection: 'column',
@@ -52,7 +52,7 @@ const Hero = () => {
                                 fontWeight: 'fontWeightBold',
                                 width: { xs: '20ch', md: '11ch' },
                                 lineHeight: '0.9',
-                                fontSize: { xs: '36px', md: '90px' },
+                                fontSize: { xs: '36px', sm: '55px', md: '90px' },
                                 textAlign: { xs: 'center', md: 'left' },
                             }}>
                             Make remote work
@@ -60,9 +60,9 @@ const Hero = () => {
                         <Typography variant='subtitle1' component='p'
                             sx={{
                                 color: 'primary.main',
-                                width: { xs: '36ch', md: '45ch' },
+                                width: { xs: '36ch', sm: '45ch' },
                                 textAlign: { xs: 'center', md: 'justify' },
-                                fontSize: { xs: '16px', md: '18px' },
+                                fontSize: { xs: '16px', sm: '18px' },
                                 my: 4
                             }}>
                             Get your team in sync, no matter your location. Streamline
@@ -86,10 +86,11 @@ const Hero = () => {
                             }}>
                             Learn more
                         </Button>
+                        {/* Client images */}
                         <Box sx={{
                             display: 'flex',
                             mt: { xs: 6, md: 5 },
-                            mb: { xs: 4, sm: 0 },
+                            mb: { xs: 4, md: 0 },
                             px: { xs: 2, md: 0 },
                         }}>
                             <Box component="img" src={databizClient} alt="" sx={imgStyles} />
@@ -98,7 +99,7 @@ const Hero = () => {
                             <Box component="img" src={makerClient} alt="" sx={imgStyles} style={{ marginRight: 0 }} />
                         </Box>
                     </Box>
-                    {/* second flex child */}
+                    {/* Hero image section */}
                     <Box sx={{ order: { xs: 1, md: 2 }, }}>
                         <Box component="img" alt="hero" sx={{
                             content: {
