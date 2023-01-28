@@ -95,15 +95,15 @@ const Hero: FC = () => {
                             mb: { xs: 4, md: 0 },
                             px: { xs: 2, md: 0 },
                         }}>
-                            <Box component="img" src={databizClient} alt="" sx={imgStyles} />
-                            <Box component="img" src={audiophileClient} alt="" sx={imgStyles} />
-                            <Box component="img" src={meetClient} alt="" sx={imgStyles} />
-                            <Box component="img" src={makerClient} alt="" sx={imgStyles} style={{ marginRight: 0 }} />
+                            <Box component="img" src={databizClient} alt="client logo" sx={imgStyles} />
+                            <Box component="img" src={audiophileClient} alt="client logo" sx={imgStyles} />
+                            <Box component="img" src={meetClient} alt="client logo" sx={imgStyles} />
+                            <Box component="img" src={makerClient} alt="client logo" sx={imgStyles} style={{ marginRight: 0 }} />
                         </Box>
                     </Box>
                     {/* Hero image section */}
                     <Box sx={{ order: { xs: 1, md: 2 }, }}>
-                        <Box component="img" alt="hero" sx={{
+                        <Box component="img" alt="snap company image" sx={{
                             content: {
                                 xs: `url(${heroMobile})`,
                                 md: `url(${heroDesktop})`,
