@@ -29,3 +29,5 @@ yarn-error.log*
 
 style-guide.md
 /design
+# Local Netlify folder
+.netlify
