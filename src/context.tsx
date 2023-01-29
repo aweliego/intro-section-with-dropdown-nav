@@ -32,6 +32,7 @@ type Props = {
 export const AppContext = React.createContext<AppContextType>(null)
 
 export const AppProvider = ({ children }: Props) => {
+    // eslint-disable-next-line
     const [navItems, setNavItems] = useState<PagesModel[]>(pages)
     const [subItems, setSubItems] = useState<PagesModel['subPages']>([])
     const [anchorEl, setAnchorEl] = useState<Element | ((element: Element) => Element) | null | undefined>(null)
