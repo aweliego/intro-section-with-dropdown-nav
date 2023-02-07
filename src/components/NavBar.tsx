@@ -62,6 +62,8 @@ const NavBar: FC = () => {
                     display: 'flex',
                     justifyContent: { xs: 'space-between' },
                     height: '80px',
+                    width: { xl: '1200px' },
+                    mx: { xl: 'auto' }
                 }}>
 
                     {/*  Logo */}

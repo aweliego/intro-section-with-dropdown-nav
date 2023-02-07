@@ -34,6 +34,7 @@ const Hero: FC = () => {
                     alignItems: { xs: 'center', md: 'end' },
                     justifyContent: { xs: 'center', md: 'space-around' },
                     mt: 4,
+                    px: { md: 4, lg: 0 },
                 }}>
                     {/* Text section */}
                     <Box sx={{
@@ -50,7 +51,7 @@ const Hero: FC = () => {
                                 fontWeight: 'fontWeightBold',
                                 width: { xs: '20ch', md: '11ch' },
                                 lineHeight: '0.9',
-                                fontSize: { xs: '36px', sm: '55px', md: '90px' },
+                                fontSize: { xs: '36px', sm: '55px', md: '75px', lg: '90px' },
                                 textAlign: { xs: 'center', md: 'left' },
                             }}>
                             Make remote work
@@ -60,7 +61,7 @@ const Hero: FC = () => {
                                 color: 'text.primary',
                                 width: { xs: '36ch', sm: '45ch' },
                                 textAlign: { xs: 'center', md: 'justify' },
-                                fontSize: { xs: '16px', sm: '18px' },
+                                fontSize: { xs: '16px', lg: '18px' },
                                 mt: 6
                             }}>
                             Get your team in sync, no matter your location. Streamline
@@ -100,7 +101,9 @@ const Hero: FC = () => {
                         </Box>
                     </Box>
                     {/* Hero image section */}
-                    <Box sx={{ order: { xs: 1, md: 2 }, }}>
+                    <Box sx={{
+                        order: { xs: 1, md: 2 },
+                    }}>
                         <Box component="img" alt="snap company image" sx={{
                             content: {
                                 xs: `url(${heroMobile})`,
@@ -108,7 +111,7 @@ const Hero: FC = () => {
                             },
                             display: 'block',
                             maxWidth: '100%',
-                            width: { xs: '100vw' },
+                            width: '100vw',
                         }} />
                     </Box>
                 </Box>

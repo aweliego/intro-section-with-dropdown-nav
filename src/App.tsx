@@ -30,6 +30,15 @@ const theme = createTheme({
       textTransform: "none"
     }
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 1115,
+      lg: 1200,
+      xl: 1750,
+    },
+  },
   components: {
     MuiButton: {
       defaultProps: {
