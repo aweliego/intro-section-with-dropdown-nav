@@ -7,10 +7,11 @@ import { createTheme } from '@mui/material/styles'
 const theme = createTheme({
   palette: {
     primary: {
-      main: 'hsl(0, 0%, 41%)'
+      main: 'hsl(0, 0%, 98%)'
     },
     secondary: {
-      main: 'hsl(0, 0%, 8%)'
+      light: 'hsl(0, 0%, 41%)',
+      main: 'hsl(0, 0%, 8%)',
     },
     text: {
       primary: 'hsl(0, 0%, 41%)',

@@ -87,7 +87,7 @@ const Sidebar: FC = () => {
                                         id={page}
                                         sx={{
                                             '&:hover': {
-                                                color: 'secondary.main',
+                                                color: 'text.secondary',
                                                 backgroundColor: 'transparent'
                                             }
                                         }}

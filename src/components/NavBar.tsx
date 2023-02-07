@@ -43,8 +43,9 @@ const NavBar: FC = () => {
 
     const buttonStyles = {
         mx: 2,
+        color: 'text.primary',
         '&:hover': {
-            color: 'secondary.main',
+            color: 'text.secondary',
             backgroundColor: 'transparent'
         }
     }
@@ -55,6 +56,7 @@ const NavBar: FC = () => {
                 component='nav'
                 elevation={0}
                 color='inherit'
+                sx={{ backgroundColor: 'primary.main' }}
             >
                 <Toolbar sx={{
                     display: 'flex',
@@ -139,9 +141,11 @@ const NavBar: FC = () => {
                             sx={{
                                 border: 1,
                                 px: 2,
+                                color: 'text.primary',
                                 '&:hover': {
                                     backgroundColor: 'transparent',
-                                    color: 'secondary.main',
+                                    color: 'text.secondary',
+                                    borderColor: 'secondary.main'
                                 }
                             }} variant="outlined">Register</Button>
                     </Box>

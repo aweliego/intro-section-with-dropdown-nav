@@ -57,7 +57,7 @@ const Hero: FC = () => {
                         </Typography>
                         <Typography variant='subtitle1' component='p'
                             sx={{
-                                color: 'primary.main',
+                                color: 'text.primary',
                                 width: { xs: '36ch', sm: '45ch' },
                                 textAlign: { xs: 'center', md: 'justify' },
                                 fontSize: { xs: '16px', sm: '18px' },
@@ -69,6 +69,7 @@ const Hero: FC = () => {
                         <Button variant='contained'
                             sx={{
                                 alignSelf: { xs: 'center', md: 'flex-start' },
+                                color: 'primary.main',
                                 backgroundColor: 'secondary.main',
                                 fontWeight: 'fontWeightBold',
                                 border: 1,
@@ -79,7 +80,7 @@ const Hero: FC = () => {
                                 mt: { xs: 3, md: 6 },
                                 '&:hover': {
                                     backgroundColor: 'transparent',
-                                    color: 'secondary.main',
+                                    color: 'text.secondary',
                                     boxShadow: 0,
                                 }
                             }}>
