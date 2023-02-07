@@ -114,7 +114,10 @@ const NavBar: FC = () => {
                                         {subItems?.map((subPage, idx) => {
                                             const { label, icon } = subPage
                                             return (
-                                                <MenuItem key={idx}
+                                                <MenuItem
+                                                    component='a'
+                                                    href='#!'
+                                                    key={idx}
                                                     onClick={handleCloseMenu}
                                                     sx={{ px: '20px' }}
                                                 >
@@ -134,11 +137,15 @@ const NavBar: FC = () => {
                         flexGrow: 0
                     }}>
                         <Button
+                            component='a'
+                            href='#!'
                             size='small'
                             sx={buttonStyles} >
                             Login
                         </Button>
                         <Button
+                            component='a'
+                            href='#!'
                             size='small'
                             sx={{
                                 border: 1,

@@ -67,7 +67,10 @@ const Hero: FC = () => {
                             Get your team in sync, no matter your location. Streamline
                             processes, create team rituals, and watch productivity soar.
                         </Typography>
-                        <Button variant='contained'
+                        <Button
+                            component='a'
+                            href='#!'
+                            variant='contained'
                             sx={{
                                 alignSelf: { xs: 'center', md: 'flex-start' },
                                 color: 'primary.main',

@@ -109,7 +109,11 @@ const Sidebar: FC = () => {
                                                     component="div"
                                                     disablePadding
                                                     sx={{ pl: 2 }}>
-                                                    <ListItemButton onClick={handleDrawerToggle}>
+                                                    <ListItemButton
+                                                        component='a'
+                                                        href='#!'
+                                                        onClick={handleDrawerToggle}
+                                                    >
                                                         {subPage.icon && <img src={subPage.icon} alt='icon' />}
                                                         <ListItemText
                                                             primaryTypographyProps={listItemStyles}
@@ -132,6 +136,8 @@ const Sidebar: FC = () => {
                         }}>
                             {/*  Login button */}
                             <ListItemButton
+                                component='a'
+                                href='#!'
                                 sx={{
                                     mx: 2,
                                     '&:hover': {
@@ -145,6 +151,8 @@ const Sidebar: FC = () => {
                             </ListItemButton>
                             {/* Register button */}
                             <ListItemButton
+                                component='a'
+                                href='#!'
                                 sx={{
                                     border: 1,
                                     borderRadius: 1,
