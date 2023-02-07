@@ -17,8 +17,6 @@ import heroMobile from '../images/image-hero-mobile.png'
 
 const Hero: FC = () => {
 
-    let boxHeight = '510px'
-
     const imgStyles = {
         maxWidth: '100%',
         height: { xs: '15px', sm: '20px' },
@@ -33,7 +31,7 @@ const Hero: FC = () => {
                 <Box sx={{
                     display: 'flex',
                     flexDirection: { xs: 'column', md: 'row' },
-                    alignItems: 'center',
+                    alignItems: { xs: 'center', md: 'end' },
                     justifyContent: { xs: 'center', md: 'space-around' },
                     mt: 4,
                 }}>
@@ -42,10 +40,8 @@ const Hero: FC = () => {
                         display: 'flex',
                         flexDirection: 'column',
                         order: { xs: 2, md: 1 },
-                        justifyContent: { xs: 'center', md: 'flex-end' },
                         alignItems: { xs: 'center', md: 'start' },
                         width: { md: '50%' },
-                        height: { md: boxHeight },
                         mt: { xs: 8, md: 0 },
                         mr: { md: 15 }
                     }}>
@@ -65,7 +61,7 @@ const Hero: FC = () => {
                                 width: { xs: '36ch', sm: '45ch' },
                                 textAlign: { xs: 'center', md: 'justify' },
                                 fontSize: { xs: '16px', sm: '18px' },
-                                my: 4
+                                mt: 6
                             }}>
                             Get your team in sync, no matter your location. Streamline
                             processes, create team rituals, and watch productivity soar.
@@ -80,6 +76,7 @@ const Hero: FC = () => {
                                 borderRadius: 2,
                                 px: { xs: 3, md: 'null' },
                                 py: { xs: 1, md: 'null' },
+                                mt: { xs: 3, md: 6 },
                                 '&:hover': {
                                     backgroundColor: 'transparent',
                                     color: 'secondary.main',
@@ -91,7 +88,7 @@ const Hero: FC = () => {
                         {/* Client images */}
                         <Box sx={{
                             display: 'flex',
-                            mt: { xs: 6, md: 5 },
+                            mt: { xs: 6, md: 14 },
                             mb: { xs: 4, md: 0 },
                             px: { xs: 2, md: 0 },
                         }}>
@@ -110,8 +107,7 @@ const Hero: FC = () => {
                             },
                             display: 'block',
                             maxWidth: '100%',
-                            width: { xs: '100vw', md: '400px' },
-                            height: { md: boxHeight },
+                            width: { xs: '100vw' },
                         }} />
                     </Box>
                 </Box>
